@@ -1,3 +1,5 @@
+const rootPath = process.env.NODE_ENV === "development" ? "http://localhost:3001/" : "/";
+
 async function backEndFetch<T>(
     request: RequestInfo
 ): Promise<T> {
@@ -18,6 +20,6 @@ interface DevicesResp {
 }
 
 export const getDevices = async () => {
-    const r = await backEndFetch<DevicesResp>('/api/v1/devices');
+    const r = await backEndFetch<DevicesResp>(rootPath + 'api/v1/devices');
     return r.devices;
 } 
