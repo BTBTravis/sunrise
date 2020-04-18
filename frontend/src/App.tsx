@@ -1,6 +1,7 @@
 import React from 'react';
-import { Header, HeaderName, Button } from 'carbon-components-react';
+import Header from './Header';
 import styled from 'styled-components';
+import { Button } from 'carbon-components-react';
 
 const MainWrapper = styled.div`
   display: flex;
@@ -12,11 +13,7 @@ const MainWrapper = styled.div`
 function App() {
   return (
     <div className="App">
-      <Header aria-label="Sunrise App Title">
-        <HeaderName href="/" prefix="">
-          Project Sunrise
-        </HeaderName>
-      </Header>
+      <Header />
       <MainWrapper>
         <Button>Hello World</Button>
       </MainWrapper>
