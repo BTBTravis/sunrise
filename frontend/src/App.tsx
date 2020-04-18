@@ -1,21 +1,40 @@
 import React from 'react';
 import Header from './Header';
 import styled from 'styled-components';
-import { Button } from 'carbon-components-react';
+import { Button,  } from 'carbon-components-react';
+import SunRiseTabs from './components/Tabs';
+//@ts-ignore
+import {display04} from '@carbon/type';
+
+const SectionTitle = styled.h1(display04);
 
 const MainWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: calc(100% - 4rem);
+  margin: 0 auto;
   min-height: 90vh;
+
+  section {
+    margin-top: calc(48px + 1rem);
+    .container {
+      margin: 1rem auto;
+    }
+  }
 `;
+
+const defaultDevice = {
+    name: "Goodnight Moon"
+}
 
 function App() {
   return (
     <div className="App">
       <Header />
       <MainWrapper>
-        <Button>Hello World</Button>
+        <section>
+          <SectionTitle>Goodnight Moon</SectionTitle>
+          <SunRiseTabs device={defaultDevice}/>
+          <Button>Hello World</Button>
+        </section>
       </MainWrapper>
     </div>
   );
