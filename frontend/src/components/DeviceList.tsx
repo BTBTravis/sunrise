@@ -17,7 +17,7 @@ const SunRiseDeviceList: React.FC<Props> = ({selectedDevice, setSelectedDevice})
 
   return (
     <TileGroup
-      defaultSelected="default-selected"
+      defaultSelected="0"
       legend=""
       name="tile-group"
       onChange={(e) => handleSelect(e)}
@@ -26,8 +26,8 @@ const SunRiseDeviceList: React.FC<Props> = ({selectedDevice, setSelectedDevice})
           <RadioTile
             light={false}
             name="tiles"
-            tabIndex={index}
-            value={index}>
+            tabIndex={0}
+            value={index.toString()}>
             {device.name} - {index}
           </RadioTile>
         ))}
