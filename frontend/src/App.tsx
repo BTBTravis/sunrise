@@ -4,7 +4,6 @@ import styled from 'styled-components';
 //@ts-ignore
 import { Button} from 'carbon-components-react';
 import SunRiseTabs from './components/Tabs';
-import DemoDeviceList from './components/DemoDeviceList';
 //@ts-ignore
 import {productiveHeading05} from '@carbon/type';
 import SunRiseDeviceList from './components/DeviceList';
@@ -30,7 +29,12 @@ const MainWrapper = styled.div`
 `;
 
 const defaultDevice = {
-    name: "Goodnight Moon"
+    name: "Goodnight Moon",
+    on_off: 0,
+    hue: 32,
+    color_temp: 2700,
+    brightness: 12,
+    saturation: 36
 }
 
 function App() {
@@ -51,16 +55,19 @@ function App() {
         <section>
           <SectionTitle as="h3">Select Device from the list</SectionTitle>
           <SunRiseDeviceList setSelectedDevice={setSelectedDevice} selectedDevice={selectedDevice} />
-          selected device: {selectedDevice || "none"}
           {selectedDevice && devices
           .filter(({device_id}) => device_id === selectedDevice)
-          .map(({name, device_id}) => (
-            <>
-              <SectionTitle as="h3">{name}</SectionTitle>
-              {device_id}
-              <SunRiseTabs device={defaultDevice}/>
-            </>
-          ))}
+          .map((device) => {
+            let {name, device_id} = device; 
+            return (
+              <>
+                <SectionTitle as="h3">{name}</SectionTitle>
+                {device_id}
+                <SunRiseTabs device={device || defaultDevice}/>
+              </>
+            )
+          }
+          )}
         </section>
       </MainWrapper>
     </div>
