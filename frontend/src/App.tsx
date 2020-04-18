@@ -1,13 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Header from './Header';
 import styled from 'styled-components';
-import { Button,  } from 'carbon-components-react';
-import SunRiseTabs from './components/Tabs';
 //@ts-ignore
-import {display04} from '@carbon/type';
+import { Button} from 'carbon-components-react';
+import SunRiseTabs from './components/Tabs';
 import DemoDeviceList from './components/DemoDeviceList';
+//@ts-ignore
+import {productiveHeading05} from '@carbon/type';
+import SunRiseDeviceList from './components/DeviceList';
 
-const SectionTitle = styled.h1(display04);
+const SectionTitle = styled.h1(productiveHeading05);
 
 const MainWrapper = styled.div`
   width: calc(100% - 4rem);
@@ -19,6 +21,9 @@ const MainWrapper = styled.div`
     .container {
       margin: 1rem auto;
     }
+    .bx--tile-group {
+      margin: 1rem auto;
+    }
   }
 `;
 
@@ -27,13 +32,19 @@ const defaultDevice = {
 }
 
 function App() {
+  const [selectedDevice, setSelectedDevice] = useState<number>(0);
   return (
     <div className="App">
       <Header />
-      <MainWrapper>
+      <MainWrapper className="bx--grid">
         <section>
-          <SectionTitle>Goodnight Moon</SectionTitle>
+          <SectionTitle as="h3">Select Device from the follow:</SectionTitle>
+          <SunRiseDeviceList setSelectedDevice={setSelectedDevice} selectedDevice={selectedDevice}/>
+          <SectionTitle as="h3">Goodnight Moon</SectionTitle>
+          {selectedDevice}
           <SunRiseTabs device={defaultDevice}/>
+          <Button>Hello World</Button>
+          <DemoDeviceList />
           <Button>Hello World</Button>
           <DemoDeviceList />
         </section>
