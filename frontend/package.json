@@ -25,7 +25,8 @@
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "build:toBackend": "npm run build && rm -r ../backend/app/react_app/* ; mv ./build/* ../backend/app/react_app/"
+        "build:toBackend": "npm run build && rm -r ../backend/app/react_app/* ; mv ./build/* ../backend/app/react_app/",
+        "mockBackend": "json-server --watch ./backend_mock.json -p 3001 --routes ./backend_mock_routes.json"
     },
     "eslintConfig": {
         "extends": "react-app"
@@ -44,6 +45,7 @@
     },
     "devDependencies": {
         "@types/carbon-components-react": "^7.10.0",
-        "@types/styled-components": "^5.1.0"
+        "@types/styled-components": "^5.1.0",
+        "json-server": "^0.16.1"
     }
 }
