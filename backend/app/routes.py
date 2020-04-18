@@ -4,6 +4,8 @@ from markupsafe import escape
 
 from app import app
 
+user_key = os.environ['USER_SECRET_KEY']
+
 # Serve React App
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
@@ -11,8 +13,7 @@ def serve(path):
     if path != "" and os.path.exists(app.static_folder + '/' + path):
         return send_from_directory(app.static_folder, path)
     else:
-        # TODO: replace this xxx with key from .env
-        if 'key' in session and session['key'] == 'xxx':
+        if 'key' in session and session['key'] == user_key:
             return send_from_directory(app.static_folder, 'index.html')
         elif 'key' in session:
             return '''
