@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Tabs, Tab } from 'carbon-components-react';
 
 interface Device {

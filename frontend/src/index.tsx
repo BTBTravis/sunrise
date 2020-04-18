@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import { DevicesProvider } from './hooks/deviceContext';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <DevicesProvider>
+      <App />
+    </DevicesProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
