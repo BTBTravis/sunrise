@@ -60,10 +60,10 @@ $ source ./venv/bin/activate
 $ pipenv install 
 ```
 
-**Run app:**
+**Run app with live reload:**
 
 ```shell
-$ FLASK_APP=sunrise.py flask run
+$ FLASK_APP=sunrise.py flask run --reload
 ```
 
 **Unit Testing:**

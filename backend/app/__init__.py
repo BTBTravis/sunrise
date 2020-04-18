@@ -1,6 +1,7 @@
 from flask import Flask
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='react_app')
+app.run(debug=True, use_reloader=True)
 
 # TODO: get this secret key from .env
 app_secret_key = 'XXXXXXXXXXX'

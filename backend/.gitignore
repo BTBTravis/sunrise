@@ -5,3 +5,4 @@ venv
 .env.prod
 api_cache.db
 deploy/configmap.yml
+app/react_app/*
