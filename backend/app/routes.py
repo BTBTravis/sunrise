@@ -3,6 +3,7 @@ from flask import Flask, session, redirect, url_for, request, render_template, s
 from markupsafe import escape
 
 from app import app
+from . import tplink
 
 user_key = os.environ['USER_SECRET_KEY']
 
@@ -23,31 +24,28 @@ def serve(path):
         return redirect(url_for('login'))
 
 
-
-# @app.route('/')
-# def index():
-#     # TODO: replace this xxx with key from .env
-#     if 'key' in session and session['key'] == 'xxx':
-#         return render_template('app.html')
-#         # return render_template('app.html', name=name)
-#         # return 'You are logged in with the correct key'
-#     elif 'key' in session:
-#         return '''
-#             <h1>Incorrect key</h1>
-#             <a href="/login">Return to login</a>
-#         '''
-#     return redirect(url_for('login'))
-
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         session['key'] = escape(request.form['key'])
+        # if we have correct valid user set tplink token
+        if session['key'] == user_key:
+            session['tp_token'] = tplink.login(
+                escape(request.form['tpuser']),
+                escape(request.form['tppw'])
+            )
         return redirect('/')
     return '''
         <form method="post">
             <label>key: </label>
             <input type=text name=key>
+            <br />
+            <label>tplink username: </label>
+            <input type=text name=tpuser>
+            <br />
+            <label>tplink pw: </label>
+            <input type=text name=tppw>
+            <br />
             <input type=submit value=login>
         </form>
     '''
@@ -58,3 +56,11 @@ def logout():
     # remove the key from the session
     session.pop('key', None)
     return redirect(url_for('login'))
+
+
+# TODO: add auth decorator
+@app.route('/v1/devices')
+def devices():
+    return {
+        'devices': tplink.get_device_list(session['tp_token'])
+    }
