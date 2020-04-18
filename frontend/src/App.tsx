@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import Header from './Header';
 import styled from 'styled-components';
 //@ts-ignore
@@ -8,6 +8,8 @@ import DemoDeviceList from './components/DemoDeviceList';
 //@ts-ignore
 import {productiveHeading05} from '@carbon/type';
 import SunRiseDeviceList from './components/DeviceList';
+import { DevicesContext } from './hooks/deviceContext';
+import { getDevices } from './hooks/backendAdapter';
 
 const SectionTitle = styled.h1(productiveHeading05);
 
@@ -32,21 +34,33 @@ const defaultDevice = {
 }
 
 function App() {
-  const [selectedDevice, setSelectedDevice] = useState<number>(0);
+  const [selectedDevice, setSelectedDevice] = useState<any>(null);
+  const { state: {devices}, setDevices } = useContext(DevicesContext);
+  
+  useEffect(() => {
+    //@ts-ignore
+      getDevices().then((devices) => {
+          setDevices(devices);
+      });
+  }, []);
+  
   return (
     <div className="App">
       <Header />
       <MainWrapper className="bx--grid">
         <section>
-          <SectionTitle as="h3">Select Device from the follow:</SectionTitle>
-          <SunRiseDeviceList setSelectedDevice={setSelectedDevice} selectedDevice={selectedDevice}/>
-          <SectionTitle as="h3">Goodnight Moon</SectionTitle>
-          {selectedDevice}
-          <SunRiseTabs device={defaultDevice}/>
-          <Button>Hello World</Button>
-          <DemoDeviceList />
-          <Button>Hello World</Button>
-          <DemoDeviceList />
+          <SectionTitle as="h3">Select Device from the list</SectionTitle>
+          <SunRiseDeviceList setSelectedDevice={setSelectedDevice} selectedDevice={selectedDevice} />
+          selected device: {selectedDevice || "none"}
+          {selectedDevice && devices
+          .filter(({device_id}) => device_id === selectedDevice)
+          .map(({name, device_id}) => (
+            <>
+              <SectionTitle as="h3">{name}</SectionTitle>
+              {device_id}
+              <SunRiseTabs device={defaultDevice}/>
+            </>
+          ))}
         </section>
       </MainWrapper>
     </div>
