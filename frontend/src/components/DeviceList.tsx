@@ -17,11 +17,7 @@ const SunRiseDeviceList: React.FC<Props> = ({selectedDevice, setSelectedDevice})
       });
   }, []);
   
-  console.log({devices})
   function handleSelect(id:any) {
-    console.log({
-      selected: id
-    })
     setSelectedDevice(id);
   }
 

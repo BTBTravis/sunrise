@@ -8,3 +8,7 @@ A small project to enable a plesent morning sun rise via IOT lights.
 - [IBM carbon storybook](https://react.carbondesignsystem.com/?path=/story/radiobutton--default)
 - [styled-components docs](https://styled-components.com/docs/)
 
+
+- [learnxiny -- python](https://learnxinyminutes.com/docs/python/)
+- https://github.com/konsumer/kasa_control/blob/master/src/lib.js
+- https://github.com/konsumer/tplink-lightbulb/blob/master/src/lib.js
