@@ -56,7 +56,7 @@ def _get_device_info(device, token):
     payload = {
         'method': 'passthrough',
         'params': {
-            'deviceId': '80120079009499F4A54D567169F218DF186E78E5',
+            'deviceId': device['device_id'],
             'requestData': "{\"system\":{\"get_sysinfo\":{}}}"
         }
     }
@@ -66,6 +66,34 @@ def _get_device_info(device, token):
     r = requests.request("POST", device['app_server_url'], json=payload,
                          headers=headers, params=params)
     raw_json = r.json()
-    response_data = json.loads(raw_json['result']['responseData'])
-    extra_info = response_data['system']['get_sysinfo']['light_state']
+    extra_info = {}
+    if ('result' in raw_json):
+        response_data = json.loads(raw_json['result']['responseData'])
+        extra_info = response_data['system']['get_sysinfo']['light_state']
     return {**device, **extra_info}
+
+def turn_device_on(device, token):
+    return _power_action(device, token, True)
+
+def turn_device_off(device, token):
+    return _power_action(device, token, False)
+
+def _power_action(device, token, on):
+    """turn a device on via the api"""
+    requestData = "{\"smartlife.iot.smartbulb.lightingservice\":{\"transition_light_state\":{\"on_off\":1,\"transition_period\":0}}}"
+    if (not on):
+        requestData = "{\"smartlife.iot.smartbulb.lightingservice\":{\"transition_light_state\":{\"on_off\":0,\"transition_period\":0}}}"
+    payload = {
+        'method': 'passthrough',
+        'params': {
+            'deviceId': device['device_id'],
+            'requestData': requestData
+        }
+    }
+    params = {
+        'token': token
+    }
+    r = requests.request("POST", device['app_server_url'], json=payload,
+                         headers=headers, params=params)
+    raw_json = r.json()
+    return raw_json['error_code'] == 0

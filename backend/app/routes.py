@@ -77,13 +77,15 @@ def devices():
     }
 
 @app.route('/api/v1/on', methods=['POST'])
-@app.route('/api/v1/off', methods=['POST'])
 @authed
 def on():
     device = request.get_json()
-    pprint(device)
-    return ({ 'success': True },200)
+    success = tplink.turn_device_on(device, session['tp_token'])
+    return ({ 'success': success },200)
     
-    # return {
-    #     'devices': tplink.get_device_list(session['tp_token'])
-    # }
+@app.route('/api/v1/off', methods=['POST'])
+@authed
+def off():
+    device = request.get_json()
+    success = tplink.turn_device_off(device, session['tp_token'])
+    return ({ 'success': success },200)
