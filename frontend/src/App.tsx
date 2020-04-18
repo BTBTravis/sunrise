@@ -1,9 +1,10 @@
 import React, {useState, useEffect, useContext} from 'react';
 import Header from './Header';
 import styled from 'styled-components';
-//@ts-ignore
-import { Button} from 'carbon-components-react';
+import { Button } from 'carbon-components-react';
 import SunRiseTabs from './components/Tabs';
+//@ts-ignore
+import {Awake32, AsleepFilled32} from '@carbon/icons-react';
 //@ts-ignore
 import {productiveHeading05} from '@carbon/type';
 import SunRiseDeviceList from './components/DeviceList';
@@ -42,9 +43,8 @@ function App() {
   const { state: {devices}, setDevices } = useContext(DevicesContext);
   
   useEffect(() => {
-    //@ts-ignore
       getDevices().then((devices) => {
-          setDevices(devices);
+        setDevices(devices);
       });
   }, []);
   
@@ -58,10 +58,10 @@ function App() {
           {selectedDevice && devices
           .filter(({device_id}) => device_id === selectedDevice)
           .map((device) => {
-            let {name, device_id} = device; 
+            let {name, device_id, on_off} = device; 
             return (
               <>
-                <SectionTitle as="h3">{name}</SectionTitle>
+                <SectionTitle as="h3">{name} {on_off === 1 ? <Awake32 /> : <AsleepFilled32 />} </SectionTitle>
                 {device_id}
                 <SunRiseTabs device={device || defaultDevice}/>
               </>
