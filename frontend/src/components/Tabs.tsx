@@ -1,18 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Tabs, Tab, Button } from 'carbon-components-react';
 //@ts-ignore
 import {Power32} from '@carbon/icons-react';
+import { DevicesContext } from '../hooks/deviceContext';
+import { Device, turnOnDevice, turnOffDevice } from '../hooks/backendAdapter';
 
-interface Device {
-  name: string
-  on_off: number
-  hue: number
-  color_temp: number
-  brightness: number
-  saturation: number
-}
 
 const SunRiseTabs: React.FC<{ device: Device }> = ({device}) => {
+  const { turnOn, turnOff } = useContext(DevicesContext);
+
+  const handleToggleClick = () => {
+    if (device.on_off === 1) {
+      turnOffDevice(device).then(() => turnOff(device));
+    } else {
+      turnOnDevice(device).then(() => turnOn(device));
+    }
+  }
+
   let {on_off, hue, color_temp, brightness, saturation} = device;
 
   return (
@@ -45,7 +49,7 @@ const SunRiseTabs: React.FC<{ device: Device }> = ({device}) => {
         iconDescription="toggle power"
         tooltipAlignment="center"
         tooltipPosition="top"
-        onClick={() => console.log({power: on_off ? "off" : "on"})}
+        onClick={handleToggleClick}
         type="button">
           <Power32 />
         </Button>

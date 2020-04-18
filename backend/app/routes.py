@@ -5,6 +5,7 @@ from markupsafe import escape
 
 from app import app
 from . import tplink
+from app.utils import pprint
 
 user_key = os.environ['USER_SECRET_KEY']
 
@@ -68,10 +69,21 @@ def logout():
     return redirect(url_for('login'))
 
 
-# TODO: add auth decorator
-@app.route('/api/v1/devices')
+@app.route('/api/v1/devices', methods=['GET'])
 @authed
 def devices():
     return {
         'devices': tplink.get_device_list(session['tp_token'])
     }
+
+@app.route('/api/v1/on', methods=['POST'])
+@app.route('/api/v1/off', methods=['POST'])
+@authed
+def on():
+    device = request.get_json()
+    pprint(device)
+    return ({ 'success': True },200)
+    
+    # return {
+    #     'devices': tplink.get_device_list(session['tp_token'])
+    # }

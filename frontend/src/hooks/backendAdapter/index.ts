@@ -26,4 +26,29 @@ interface DevicesResp {
 export const getDevices = async () => {
     const r = await backEndFetch<DevicesResp>(rootPath + 'api/v1/devices');
     return r.devices;
+}
+
+const jsonHeaders = new Headers();
+jsonHeaders.append('Content-Type', 'application/json');
+
+interface DefaultActionResp {
+    success: boolean
+}
+
+export const turnOnDevice = async (d: Device) => {
+    const r = await backEndFetch<DefaultActionResp>(new Request(rootPath + 'api/v1/on', {
+        method: 'POST',
+        headers: jsonHeaders,
+        body: JSON.stringify(d)
+    }));
+    return r.success;
+} 
+
+export const turnOffDevice = async (d: Device) => {
+    const r = await backEndFetch<DefaultActionResp>(new Request(rootPath + 'api/v1/off', {
+        method: 'POST',
+        headers: jsonHeaders,
+        body: JSON.stringify(d)
+    }));
+    return r.success;
 } 

@@ -1,5 +1,50 @@
 {
-    "devices": {
-        "devices": [{ "app_server_url": "https://use1-wap.tplinkcloud.com", "brightness": 12, "color_temp": 2700, "device_id": "8012CED6023B41628D5E7583F58211BD1877CE4B", "hue": 32, "mode": "normal", "name": "Wake The Sun", "on_off": 1, "saturation": 36 }, { "app_server_url": "https://use1-wap.tplinkcloud.com", "brightness": 12, "color_temp": 2700, "device_id": "80120079009499F4A54D567169F218DF186E78E5", "hue": 32, "mode": "normal", "name": "Goodnight Moon", "on_off": 1, "saturation": 36 }]
-    }
+  "devices": {
+    "devices": [
+      {
+        "app_server_url": "https://use1-wap.tplinkcloud.com",
+        "brightness": 12,
+        "color_temp": 2700,
+        "device_id": "8012CED6023B41628D5E7583F58211BD1877CE4B",
+        "hue": 32,
+        "mode": "normal",
+        "name": "Wake The Sun",
+        "on_off": 1,
+        "saturation": 36
+      },
+      {
+        "app_server_url": "https://use1-wap.tplinkcloud.com",
+        "brightness": 12,
+        "color_temp": 2700,
+        "device_id": "80120079009499F4A54D567169F218DF186E78E5",
+        "hue": 32,
+        "mode": "normal",
+        "name": "Goodnight Moon",
+        "on_off": 1,
+        "saturation": 36
+      }
+    ]
+  },
+  "on": {
+    "app_server_url": "https://use1-wap.tplinkcloud.com",
+    "brightness": 12,
+    "color_temp": 2700,
+    "device_id": "80120079009499F4A54D567169F218DF186E78E5",
+    "hue": 32,
+    "mode": "normal",
+    "name": "Goodnight Moon",
+    "on_off": 0,
+    "saturation": 36
+  },
+  "off": {
+    "app_server_url": "https://use1-wap.tplinkcloud.com",
+    "brightness": 12,
+    "color_temp": 2700,
+    "device_id": "80120079009499F4A54D567169F218DF186E78E5",
+    "hue": 32,
+    "mode": "normal",
+    "name": "Goodnight Moon",
+    "on_off": 1,
+    "saturation": 36
+  }
 }
