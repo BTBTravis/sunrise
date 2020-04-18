@@ -1,13 +1,16 @@
-import React from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import Header from './Header';
 import styled from 'styled-components';
-import { Button,  } from 'carbon-components-react';
+//@ts-ignore
+import { Button} from 'carbon-components-react';
 import SunRiseTabs from './components/Tabs';
 //@ts-ignore
-import {display04} from '@carbon/type';
-import DemoDeviceList from './components/DemoDeviceList';
+import {productiveHeading05} from '@carbon/type';
+import SunRiseDeviceList from './components/DeviceList';
+import { DevicesContext } from './hooks/deviceContext';
+import { getDevices } from './hooks/backendAdapter';
 
-const SectionTitle = styled.h1(display04);
+const SectionTitle = styled.h1(productiveHeading05);
 
 const MainWrapper = styled.div`
   width: calc(100% - 4rem);
@@ -19,23 +22,52 @@ const MainWrapper = styled.div`
     .container {
       margin: 1rem auto;
     }
+    .bx--tile-group {
+      margin: 1rem auto;
+    }
   }
 `;
 
 const defaultDevice = {
-    name: "Goodnight Moon"
+    name: "Goodnight Moon",
+    on_off: 0,
+    hue: 32,
+    color_temp: 2700,
+    brightness: 12,
+    saturation: 36
 }
 
 function App() {
+  const [selectedDevice, setSelectedDevice] = useState<any>(null);
+  const { state: {devices}, setDevices } = useContext(DevicesContext);
+  
+  useEffect(() => {
+    //@ts-ignore
+      getDevices().then((devices) => {
+          setDevices(devices);
+      });
+  }, []);
+  
   return (
     <div className="App">
       <Header />
-      <MainWrapper>
+      <MainWrapper className="bx--grid">
         <section>
-          <SectionTitle>Goodnight Moon</SectionTitle>
-          <SunRiseTabs device={defaultDevice}/>
-          <Button>Hello World</Button>
-          <DemoDeviceList />
+          <SectionTitle as="h3">Select Device from the list</SectionTitle>
+          <SunRiseDeviceList setSelectedDevice={setSelectedDevice} selectedDevice={selectedDevice} />
+          {selectedDevice && devices
+          .filter(({device_id}) => device_id === selectedDevice)
+          .map((device) => {
+            let {name, device_id} = device; 
+            return (
+              <>
+                <SectionTitle as="h3">{name}</SectionTitle>
+                {device_id}
+                <SunRiseTabs device={device || defaultDevice}/>
+              </>
+            )
+          }
+          )}
         </section>
       </MainWrapper>
     </div>

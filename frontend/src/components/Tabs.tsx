@@ -3,9 +3,16 @@ import { Tabs, Tab } from 'carbon-components-react';
 
 interface Device {
   name: string
+  on_off: number
+  hue: number
+  color_temp: number
+  brightness: number
+  saturation: number
 }
 
 const SunRiseTabs: React.FC<{ device: Device }> = ({device}) => {
+
+  let {on_off, hue, color_temp, brightness, saturation} = device;
 
   return (
     <Tabs 
@@ -31,7 +38,11 @@ const SunRiseTabs: React.FC<{ device: Device }> = ({device}) => {
         handleTabKeyDown={()=>console.log("keydown")}
         tabIndex={0}>
       <div>
-        <p>{device.name}</p>
+        <p>Power: {on_off ? "On" : "Off"}</p>
+        <p>Hue: {hue}</p>
+        <p>Color Temp: {color_temp}</p>
+        <p>Brightness: {brightness}</p>
+        <p>Saturation: {saturation}</p>
       </div>
     </Tab>
       <Tab
