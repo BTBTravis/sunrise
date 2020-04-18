@@ -31,17 +31,18 @@ def _reduce_device(d):
         'app_server_url': d['appServerUrl']
     }
 
+
 def get_device_list(token):
     # get device list from api
-    payload={
+    payload = {
         'method': 'getDeviceList'
     }
     params = {
         'token': token
     }
     r = requests.request("POST", base_url, json=payload,
-                         headers = headers, params = params)
-    raw_json=r.json()
+                         headers=headers, params=params)
+    raw_json = r.json()
     # reduce data to needed fields
-    raw_device_list=raw_json['result']['deviceList']
+    raw_device_list = raw_json['result']['deviceList']
     return list(map(_reduce_device, raw_device_list))
