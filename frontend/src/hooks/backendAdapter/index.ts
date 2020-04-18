@@ -4,7 +4,6 @@ async function backEndFetch<T>(
     request: RequestInfo
 ): Promise<T> {
     const response = await fetch(request);
-    console.log('response', response);
     const body = await response.json();
     return body;
 }
@@ -13,6 +12,11 @@ export interface Device {
     app_server_url: string;
     device_id: string;
     name: string;
+    brightness: number;
+    color_temp: number,
+    hue: number;
+    on_off: number;
+    saturation: number;
 }
 
 interface DevicesResp {
