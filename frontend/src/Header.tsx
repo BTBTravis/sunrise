@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Header, HeaderName, Button, HeaderNavigation, HeaderMenuItem, HeaderMenuButton, HeaderMenu, SideNav, SideNavItems, HeaderSideNavItems } from 'carbon-components-react';
+import { Header, HeaderName, HeaderNavigation, HeaderMenuItem, HeaderMenuButton, HeaderMenu, SideNav, SideNavItems, HeaderSideNavItems } from 'carbon-components-react';
 // import styled from 'styled-components';
 
 const HeaderItems = () => (
