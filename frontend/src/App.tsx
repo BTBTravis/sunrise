@@ -5,6 +5,7 @@ import { Button,  } from 'carbon-components-react';
 import SunRiseTabs from './components/Tabs';
 //@ts-ignore
 import {display04} from '@carbon/type';
+import DemoDeviceList from './components/DemoDeviceList';
 
 const SectionTitle = styled.h1(display04);
 
@@ -34,6 +35,7 @@ function App() {
           <SectionTitle>Goodnight Moon</SectionTitle>
           <SunRiseTabs device={defaultDevice}/>
           <Button>Hello World</Button>
+          <DemoDeviceList />
         </section>
       </MainWrapper>
     </div>
