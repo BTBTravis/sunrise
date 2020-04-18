@@ -6,12 +6,15 @@ import SunRiseTabs from './components/Tabs';
 //@ts-ignore
 import {Awake32, AsleepFilled32} from '@carbon/icons-react';
 //@ts-ignore
-import {productiveHeading05} from '@carbon/type';
-import SunRiseDeviceList from './components/DeviceList';
+import {Ideate} from '@carbon/pictograms-react';
+//@ts-ignore
+import {productiveHeading05, display04} from '@carbon/type';
+// import SunRiseDeviceList from './components/DeviceList';
 import { DevicesContext } from './hooks/deviceContext';
 import { getDevices } from './hooks/backendAdapter';
 
 const SectionTitle = styled.h1(productiveHeading05);
+const PageTitle = styled.h1(display04);
 
 const MainWrapper = styled.div`
   width: calc(100% - 4rem);
@@ -50,12 +53,12 @@ function App() {
   
   return (
     <div className="App">
-      <Header />
+      <Header setSelectedDevice={setSelectedDevice} selectedDevice={selectedDevice} />
       <MainWrapper className="bx--grid">
         <section>
-          <SectionTitle as="h3">Select Device from the list</SectionTitle>
-          <SunRiseDeviceList setSelectedDevice={setSelectedDevice} selectedDevice={selectedDevice} />
-          {selectedDevice && devices
+          {/* <SectionTitle as="h3">Select Device from the list</SectionTitle> */}
+          {/* <SunRiseDeviceList setSelectedDevice={setSelectedDevice} selectedDevice={selectedDevice} /> */}
+          {selectedDevice ? devices
           .filter(({device_id}) => device_id === selectedDevice)
           .map((device) => {
             let {name, device_id, on_off} = device; 
@@ -67,6 +70,11 @@ function App() {
               </>
             )
           }
+          ): (
+            <div>
+              <PageTitle>Welcome</PageTitle>
+              <SectionTitle as="h3">This is a python + react app that turns Steven's lightbulb on and off</SectionTitle>
+            </div>
           )}
         </section>
       </MainWrapper>

@@ -1,17 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Header, HeaderName, HeaderNavigation, HeaderMenuItem, HeaderMenuButton, HeaderMenu, SideNav, SideNavItems, HeaderSideNavItems } from 'carbon-components-react';
+import { DevicesContext } from './hooks/deviceContext';
+import { getDevices } from './hooks/backendAdapter';
 // import styled from 'styled-components';
+interface Props {
+    setSelectedDevice: React.Dispatch<React.SetStateAction<number>>
+    selectedDevice: any
+  };
 
-const HeaderItems = () => (
+const HeaderItems: React.FC<Props> = ({selectedDevice, setSelectedDevice}) => {
+  const { state: {devices}, setDevices } = useContext(DevicesContext);
+  useEffect(() => {
+      getDevices().then((devices) => {
+          setDevices(devices);
+      });
+  }, []);
+  
+  function handleSelect(id:any) {
+    setSelectedDevice(id);
+  }
+    return (
     <>
         <HeaderMenu menuLinkName="repo">
             <HeaderMenuItem href="https://gitlab.com/BTBTravis/sunrise/-/tree/master">gitlab</HeaderMenuItem>
         </HeaderMenu>
+        <HeaderMenu menuLinkName="devices">
+            {devices && devices.map(({name, device_id}) => (
+                <HeaderMenuItem onClick={() => handleSelect(device_id)} href={`#${name}`}>{name}</HeaderMenuItem>
+            ))}
+        </HeaderMenu>
         <HeaderMenuItem href="/logout">logout</HeaderMenuItem>
     </>
-);
+)};
 
-const SunRiseHeader = () => {
+const SunRiseHeader: React.FC<Props> = ({selectedDevice, setSelectedDevice}) => {
     const [isSideNavExpanded, setSideNavExpanded] = useState(false);
     const handleMenuIconClick = () => setSideNavExpanded(!isSideNavExpanded);
 
@@ -26,7 +48,7 @@ const SunRiseHeader = () => {
             Project Sunrise
             </HeaderName>
             <HeaderNavigation>
-                <HeaderItems />
+                <HeaderItems setSelectedDevice={setSelectedDevice} selectedDevice={selectedDevice} />
             </HeaderNavigation>
             <SideNav
                 aria-label="Side navigation"
@@ -34,7 +56,7 @@ const SunRiseHeader = () => {
                 isPersistent={false}>
                 <SideNavItems>
                     <HeaderSideNavItems>
-                        <HeaderItems />
+                        <HeaderItems setSelectedDevice={setSelectedDevice} selectedDevice={selectedDevice} />
                     </HeaderSideNavItems>
                 </SideNavItems>
             </SideNav>
