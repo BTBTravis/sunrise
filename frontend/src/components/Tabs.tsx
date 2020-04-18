@@ -1,5 +1,7 @@
 import React from 'react';
-import { Tabs, Tab } from 'carbon-components-react';
+import { Tabs, Tab, Button } from 'carbon-components-react';
+//@ts-ignore
+import {Power32} from '@carbon/icons-react';
 
 interface Device {
   name: string
@@ -11,7 +13,6 @@ interface Device {
 }
 
 const SunRiseTabs: React.FC<{ device: Device }> = ({device}) => {
-
   let {on_off, hue, color_temp, brightness, saturation} = device;
 
   return (
@@ -38,7 +39,16 @@ const SunRiseTabs: React.FC<{ device: Device }> = ({device}) => {
         handleTabKeyDown={()=>console.log("keydown")}
         tabIndex={0}>
       <div>
-        <p>Power: {on_off ? "On" : "Off"}</p>
+        <Button 
+        kind={on_off ? "primary" : "secondary"}
+        hasIconOnly
+        iconDescription="toggle power"
+        tooltipAlignment="center"
+        tooltipPosition="top"
+        onClick={() => console.log({power: on_off ? "off" : "on"})}
+        type="button">
+          <Power32 />
+        </Button>
         <p>Hue: {hue}</p>
         <p>Color Temp: {color_temp}</p>
         <p>Brightness: {brightness}</p>
