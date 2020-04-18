@@ -1,4 +1,5 @@
 import os
+from functools import wraps
 from flask import Flask, session, redirect, url_for, request, render_template, send_from_directory
 from markupsafe import escape
 
@@ -6,6 +7,15 @@ from app import app
 from . import tplink
 
 user_key = os.environ['USER_SECRET_KEY']
+
+
+def authed(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if ('key' not in session or session['key'] != user_key):
+            return ("no key", 401)        # get user via some ORM system
+        return f(*args, **kwargs)
+    return wrap
 
 # Serve React App
 @app.route('/', defaults={'path': ''})
@@ -59,7 +69,8 @@ def logout():
 
 
 # TODO: add auth decorator
-@app.route('/v1/devices')
+@app.route('/api/v1/devices')
+@authed
 def devices():
     return {
         'devices': tplink.get_device_list(session['tp_token'])
