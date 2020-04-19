@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: sunrise
+    tier: web_app
+  name: sunrise
+  namespace: default
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: sunrise
+    tier: web_app
+  sessionAffinity: None
+  type: ClusterIP
