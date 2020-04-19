@@ -40,8 +40,6 @@ $ npm run build:toBackend
 
 ### Links
 
-- https://github.com/konsumer/kasa_control/blob/master/src/lib.js
-- https://github.com/konsumer/tplink-lightbulb/blob/master/src/lib.js
 - [learn x in y min -- python](https://learnxinyminutes.com/docs/python/)
 - [flask docs](https://flask.palletsprojects.com/en/1.1.x)
 - https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-ii-templates
@@ -95,6 +93,16 @@ afterward make sure to lock and commit changes to the `PipFile.lock`:
 ```shell
 $ pipenv lock
 ```
+
+### TP-Link API
+
+Could not find actual documentation on the TP-link api. We make everything from looking at other
+projects and probing the api with [Insomnia](https://insomnia.rest/).
+
+- https://github.com/konsumer/kasa_control/blob/master/src/lib.js
+- https://github.com/konsumer/tplink-lightbulb/blob/master/src/lib.js
+
+Also included a [insomnia enverioment json](sunrise_2020-04-18.json) that can be inproted into insomnia
 
 ## Versioning
 
