@@ -4,10 +4,10 @@ RUN adduser -D runner
 
 WORKDIR /home/runner
 
-COPY requirements.txt requirements.txt
-RUN python -m venv venv
-RUN venv/bin/pip install -r requirements.txt
-RUN venv/bin/pip install gunicorn
+COPY Pipfile Pipfile
+COPY Pipfile.lock Pipfile.lock
+RUN pip install pipenv
+RUN pipenv install --system --deploy --ignore-pipfile
 
 COPY app app
 COPY sunrise.py deploy/start.sh ./
