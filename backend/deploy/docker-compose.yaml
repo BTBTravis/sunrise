@@ -1,0 +1,8 @@
+version: "3.7"
+services:
+  sunrise:
+    image: registry.gitlab.com/btbtravis/sunrise:0.0.1--alpha3
+    env_file: ../.env
+    ports:
+      - "5000:5000"
+
