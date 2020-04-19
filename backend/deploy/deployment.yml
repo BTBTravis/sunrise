@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: sunrise
+    tier: web_app
+  name: sunrise
+  namespace: default
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: sunrise
+      tier: web_app
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: sunrise
+        tier: web_app
+    spec:
+      containers:
+      - env:
+        - name: APP_SECRET_KEY
+          valueFrom:
+            configMapKeyRef:
+              key: APP_SECRET_KEY
+              name: sunrise-config
+        - name: USER_SECRET_KEY
+          valueFrom:
+            configMapKeyRef:
+              key: USER_SECRET_KEY
+              name: sunrise-config
+        image: registry.gitlab.com/btbtravis/sunrise:0.0.1--alpha1
+        imagePullPolicy: IfNotPresent
+        name: sunrise-webapp
+        ports:
+        - containerPort: 5000
+          protocol: TCP
+        resources: {}
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: sunrise
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
