@@ -2,6 +2,8 @@
 
 A small project to enable a pleasant morning sun rise via IOT lights.
 
+![sunrise_screen_cap](sunrise_screen_cap.png)
+
 ## Frontend (JavaScript React app)
 
 ### Links
