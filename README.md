@@ -19,19 +19,19 @@ react app dev server that hosts on ex `localhost:3000`. The dev setup relies on 
 mock server that serves a fake backend for development purposes on `localhost:3001`.
 
 **To start the json mock server:**
-```script
+```shell
 $ cd frontend
 $ npm run mockBackend
 ```
 
 **To start the react dev server:**
-```script
+```shell
 $ cd frontend
 $ npm run start
 ```
 
 **To build the app and copy it over to the place in the backend folder where it can be served by python run:**
-```script
+```shell
 $ cd frontend
 $ npm run build:toBackend
 ```
